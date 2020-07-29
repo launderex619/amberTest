@@ -1,0 +1,95 @@
+{
+	"info": {
+		"_postman_id": "da5176b6-9859-4efa-8f17-81bd1a97e40a",
+		"name": "Amber",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Levels",
+			"item": [
+				{
+					"name": "getInformationLevel",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/levels/",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"levels",
+								""
+							]
+						},
+						"description": "This get all the related information about a certain level"
+					},
+					"response": []
+				},
+				{
+					"name": "createLevel",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/D:/Documentos/amber studio/proyecto entrevista/game/API/dev-data/level2.png"
+								},
+								{
+									"key": "index",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "level2",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Glory for you, death for all!",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/level",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"level"
+							]
+						},
+						"description": "This route if to create a new level information"
+					},
+					"response": []
+				},
+				{
+					"name": "getLevels",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						},
+						"description": "This route is to retrieve all levels in the game"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
