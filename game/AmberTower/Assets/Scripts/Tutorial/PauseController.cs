@@ -6,10 +6,11 @@ using UnityEngine.SceneManagement;
 public class PauseController : MonoBehaviour
 {
     [SerializeField] private GameObject panel;
+    [SerializeField] private string actualLevel;
     private bool isActive = false;
     public void RestartLevel() 
     {   
-        SceneManager.LoadScene("Tutorial");
+        SceneManager.LoadScene(actualLevel);
     }
     public void CloseLevel() {
         SceneManager.LoadScene("Levels");

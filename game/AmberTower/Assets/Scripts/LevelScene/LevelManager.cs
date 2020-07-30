@@ -14,7 +14,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private string levelToLoad;
     private LevelModel levelModel;
     private LeaderboardModel leaderboardModel;
-    private const string URL = "localhost:3000/";
+    private const string URL = "https://amber-intrerview.herokuapp.com/";
     private const string API_VERSION = "api/v1/";
 
     public void Start() {

@@ -733,6 +733,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1447820824}
     m_Modifications:
+    - target: {fileID: 588699179478041243, guid: 4cb5b48ee99445d418c636d30ec75df2,
+        type: 3}
+      propertyPath: actualLevel
+      value: Tutorial
+      objectReference: {fileID: 0}
     - target: {fileID: 588699179478041246, guid: 4cb5b48ee99445d418c636d30ec75df2,
         type: 3}
       propertyPath: m_Name
@@ -967,6 +972,11 @@ PrefabInstance:
       propertyPath: scoreManager
       value: 
       objectReference: {fileID: 868775795}
+    - target: {fileID: 2116079076543213733, guid: 84f0aa727adc46843ab7ff6d3c96bdf3,
+        type: 3}
+      propertyPath: actualLevel
+      value: Tutorial
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 84f0aa727adc46843ab7ff6d3c96bdf3, type: 3}
 --- !u!1001 &2325734036708141474

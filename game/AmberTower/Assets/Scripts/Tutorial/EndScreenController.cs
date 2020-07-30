@@ -10,7 +10,8 @@ public class EndScreenController : MonoBehaviour
 {
     [SerializeField] private GameObject scoreManager;
     [SerializeField] private TextMeshProUGUI userName;
-    private const string URL = "localhost:3000/";
+    [SerializeField] private string actualLevel;
+    private const string URL = "https://amber-intrerview.herokuapp.com/";
     private const string API_VERSION = "api/v1/";
 
     public void Finish() {
@@ -19,7 +20,7 @@ public class EndScreenController : MonoBehaviour
     }
 
     public void RestartLevel() {
-        SceneManager.LoadScene("Tutorial");
+        SceneManager.LoadScene(actualLevel);
     }
 
     public void EndLevel() {

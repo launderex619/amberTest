@@ -14,15 +14,18 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/api/v1/levels/",
+							"raw": "https://amber-intrerview.herokuapp.com/api/v1/level/5f20e23c93827f57b410a653",
+							"protocol": "https",
 							"host": [
-								"{{URL}}"
+								"amber-intrerview",
+								"herokuapp",
+								"com"
 							],
 							"path": [
 								"api",
 								"v1",
-								"levels",
-								""
+								"level",
+								"5f20e23c93827f57b410a653"
 							]
 						},
 						"description": "This get all the related information about a certain level"
@@ -60,11 +63,13 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:3000/api/v1/level",
+							"raw": "https://amber-intrerview.herokuapp.com/api/v1/level",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"amber-intrerview",
+								"herokuapp",
+								"com"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"v1",
@@ -81,9 +86,95 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "https://amber-intrerview.herokuapp.com/api/v1/level",
+							"protocol": "https",
+							"host": [
+								"amber-intrerview",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"level"
+							]
 						},
 						"description": "This route is to retrieve all levels in the game"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Leaderboards",
+			"item": [
+				{
+					"name": "getScores",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://amber-intrerview.herokuapp.com/api/v1/leaderboard/5f20e23c93827f57b410a653",
+							"protocol": "https",
+							"host": [
+								"amber-intrerview",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"leaderboard",
+								"5f20e23c93827f57b410a653"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "score",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": null,
+									"disabled": true
+								}
+							]
+						},
+						"description": "Get all (or url specified) scores from given level."
+					},
+					"response": []
+				},
+				{
+					"name": "addScore",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"player\": \"genericPlayer1\",\r\n    \"score\": 20\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://amber-intrerview.herokuapp.com/api/v1/leaderboard/5f20e23c93827f57b410a653",
+							"protocol": "https",
+							"host": [
+								"amber-intrerview",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"leaderboard",
+								"5f20e23c93827f57b410a653"
+							]
+						},
+						"description": "This route add an score to specified level."
 					},
 					"response": []
 				}
