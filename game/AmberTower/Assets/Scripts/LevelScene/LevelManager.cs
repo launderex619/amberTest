@@ -1,14 +1,19 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
     [SerializeField] private GameObject panelLevelInformation;
+    [SerializeField] private string levelToLoad;
     private LevelModel levelModel;
+    private LeaderboardModel leaderboardModel;
     private const string URL = "localhost:3000/";
     private const string API_VERSION = "api/v1/";
 
@@ -26,12 +31,26 @@ public class LevelManager : MonoBehaviour
         }
         else {
             // Show results as text
-            Debug.Log(www.downloadHandler.text);
             levelModel = LevelModel.CreateFromJSON(www.downloadHandler.text);
         }
     }
 
-    private IEnumerator setPanelImage(string imageURL) 
+    private IEnumerator GetLeaderboard(string level) {
+        UnityWebRequest www = UnityWebRequest.Get(URL + API_VERSION + "leaderboard/" + level);
+        yield return www.SendWebRequest();
+
+        if (www.isNetworkError || www.isHttpError) {
+            // some method to cath error (pending)
+            Debug.LogError(www.error);
+        }
+        else {
+            // Show results as text
+            leaderboardModel = LeaderboardModel.CreateFromJSON(www.downloadHandler.text);
+            FillLeaderboard();
+        }
+    }
+
+    private IEnumerator SetPanelImage(string imageURL) 
     {
         UnityWebRequest www = UnityWebRequestTexture.GetTexture(imageURL);
         yield return www.SendWebRequest();
@@ -50,22 +69,59 @@ public class LevelManager : MonoBehaviour
     {
         GameObject lvlTitle = panelLevelInformation.transform.Find("lvlNameTxt").gameObject;
         GameObject lvlDescription = panelLevelInformation.transform.Find("lvlDescriptionTxt").gameObject;
-        GameObject leaderboardParent = panelLevelInformation.transform.Find("lvlLeaderboard").gameObject;
-        GameObject firtsFiveNames = leaderboardParent.transform.Find("lvlLeaderboardNamesTxt").gameObject;
-        GameObject firtsFiveRank = leaderboardParent.transform.Find("lvlLeaderboardRankTxt").gameObject;
-
         string levelId = levelModel.data.data[levelIndex]._id;
-        Debug.Log(levelId);
+        LevelId.Level_id = levelId;
 
-        // http://localhost:3000/tutorial.jpeg
-        StartCoroutine(setPanelImage(URL + levelModel.data.data[levelIndex].image));
         lvlTitle.GetComponent<TextMeshProUGUI>().text = levelModel.data.data[levelIndex].name;
         lvlDescription.GetComponent<TextMeshProUGUI>().text = levelModel.data.data[levelIndex].description;
+
+        StartCoroutine(SetPanelImage(URL + levelModel.data.data[levelIndex].image));
+        StartCoroutine(GetLeaderboard(levelId));
 
         panelLevelInformation.SetActive(true);
     }
 
+    private void FillLeaderboard() {
+        GameObject leaderboardParent = panelLevelInformation.transform.Find("lvlLeaderboard").gameObject;
+        GameObject firtsFiveNames = leaderboardParent.transform.Find("lvlLeaderboardNamesTxt").gameObject;
+        GameObject firtsFiveRank = leaderboardParent.transform.Find("lvlLeaderboardRankTxt").gameObject;
+
+        string first5rankFormated;
+        string first5namesFormated;
+
+        first5rankFormated = FormatRankValues();
+        first5namesFormated = FormatNameValues();
+
+        firtsFiveNames.GetComponent<TextMeshProUGUI>().text = first5namesFormated;
+        firtsFiveRank.GetComponent<TextMeshProUGUI>().text = first5rankFormated;
+
+    }
+
+    private string FormatRankValues() {
+        StringBuilder sb = new StringBuilder("", 100);
+        for (int i = 0; i < leaderboardModel.results; i++) {
+            sb.Append(leaderboardModel.data.data[i].score + "\n");
+        }
+        return sb.ToString();
+    }
+
+    private string FormatNameValues() {
+        StringBuilder sb = new StringBuilder("", 100);
+        for (int i = 0; i < leaderboardModel.results; i++) {
+            sb.Append(leaderboardModel.data.data[i].player + "\n");
+        }
+        return sb.ToString();
+    }
+
     public void ClosePanel() { 
         panelLevelInformation.SetActive(false);
+    }
+
+    public void SetLevel(string level) {
+        levelToLoad = level;
+    }
+
+    public void StartLevel() {
+        SceneSwitcher.StartLevel(levelToLoad);
     }
 }

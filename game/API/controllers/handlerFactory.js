@@ -29,10 +29,9 @@ exports.getOne = Model =>
 
 exports.getAll = Model =>
   catchAsync(async (req, res, next) => {
-    // to allow for nested Get reviews on tour (hack)
     let filter = {};
-    if (req.params.tourId) {
-      filter = { tour: req.params.tourId };
+    if (req.params.level_id) {
+      filter = { level_id: req.params.level_id };
     }
     const features = new APIFeatures(Model.find(filter), req.query)
       .sort()

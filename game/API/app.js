@@ -10,7 +10,7 @@ const compression = require('compression');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
-//const leaderboardRouter = require('./routes/leaderboardRoutes');
+const leaderboardRouter = require('./routes/leaderboardRoutes');
 const levelRouter = require('./routes/levelRoutes');
 
 const app = express();
@@ -52,7 +52,7 @@ app.use((req, res, next) => {
 
 // Routes
 app.use('/api/v1/level', levelRouter);
-//app.use('/api/v1/leaderboard', leaderboardRouter);
+app.use('/api/v1/leaderboard', leaderboardRouter);
 
 // Not found route at all
 app.all('*', (req, res, next) => {
